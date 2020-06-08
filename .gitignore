@@ -1,0 +1,9 @@
+# production
+dist
+
+# dependencies
+node_modules
+
+# misc
+.prettierrc
+.vscode
