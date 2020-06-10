@@ -5,7 +5,7 @@ import {
   deleteTweet,
   getTweet,
   updateTweet,
-} from '../../infrastructure/repositories/mongoDB.tweet.repository';
+} from '../../infrastructure/repositories/mongodb.tweet.repository';
 import { TweetProps } from '../../domain/tweet.domain';
 
 export const tweetList = async (
