@@ -8,7 +8,10 @@ The purpose of this application is to practice code to develop different standar
 
 ## Targeted features
 
--[x] Create REST api to manage users, tweets and message -[x] Set up a news feed -[x] Create a session-based authentication system -[x] Allow users to receive new tweets in real time
+- [x] Create REST api to manage users, tweets and message
+- [x] Set up a news feed
+- [x] Create a session-based authentication system
+- [x] Allow users to receive new tweets in real time
 
 ## Installation
 
