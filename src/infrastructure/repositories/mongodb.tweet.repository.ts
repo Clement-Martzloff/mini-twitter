@@ -7,14 +7,12 @@ export const createTweet = (body: TweetProps) =>
   mongooseTweetModel.create(body);
 
 export const deleteTweet = (tweetId: string) =>
-  mongooseTweetModel.findByIdAndDelete(tweetId);
+  mongooseTweetModel.findByIdAndDelete(tweetId).exec();
 
 export const getTweet = (tweetId: string) =>
   mongooseTweetModel.findOne({ _id: tweetId }).exec();
 
 export const updateTweet = (tweetId: string, body: TweetProps) =>
-  mongooseTweetModel.findByIdAndUpdate(
-    tweetId,
-    { $set: body },
-    { runValidators: true }
-  );
+  mongooseTweetModel
+    .findByIdAndUpdate(tweetId, { $set: body }, { runValidators: true })
+    .exec();
