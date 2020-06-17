@@ -1,11 +1,9 @@
 import { connect } from 'mongoose';
+const uri: string = process.env.MONGO_CONNECTION_URI!;
 
-connect(
-  'mongodb+srv://dbAdmin:qwe@cluster0-mkbwe.mongodb.net/twitter?retryWrites=true&w=majority',
-  {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  }
-);
+connect(uri, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
 
 console.log('connection ok !');
