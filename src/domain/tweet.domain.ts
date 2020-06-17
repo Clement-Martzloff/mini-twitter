@@ -1,3 +1,4 @@
-export type TweetProps = {
+export interface TweetProps {
   content: string;
-};
+  authorId: string;
+}
