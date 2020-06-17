@@ -1,14 +1,16 @@
 import express, { Request, Response } from 'express';
+const app = express();
+export { app };
+const port = process.env.PORT || 3000;
 import morgan from 'morgan';
 import path from 'path';
 import errorhandler from 'errorhandler';
+
+import { router as indexRoutes } from './src/application/routes/index.routes';
+
 import './src/infrastructure/mongodb.connection';
-import { router as allRoutes } from './src/application/routes/all.routes';
-
-export { app };
-
-const app = express();
-const port = process.env.PORT || 3000;
+import './src/config/session.config';
+import './src/config/passport.config';
 
 app.set('views', path.join(__dirname, 'src/views'));
 app.set('view engine', 'pug');
@@ -17,7 +19,7 @@ app.use(morgan('short'));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(allRoutes);
+app.use(indexRoutes);
 
 if (process.env.NODE_ENV === 'development') {
   app.use(errorhandler);

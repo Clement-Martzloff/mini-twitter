@@ -8,6 +8,7 @@ app.use(
   expressSession({
     secret: 'secret',
     resave: false,
+    saveUninitialized: false,
     cookie: {
       httpOnly: false,
       maxAge: 1000 * 60 * 60 * 24 * 14,
