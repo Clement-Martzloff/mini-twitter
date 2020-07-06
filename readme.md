@@ -12,6 +12,7 @@ The purpose of this application is to practice code to develop different standar
 - [x] Set up a news feed
 - [x] Create a session-based authentication system
 - [x] Allow users to receive new tweets in real time
+- [x] Create a user's profile administration
 
 ## Installation
 
@@ -21,7 +22,7 @@ Use the package manager [yarn](https://yarnpkg.com/) to install all the dependen
 yarn install
 ```
 
-## Running the project
+## Run the project
 
 ```bash
 yarn start:dev
