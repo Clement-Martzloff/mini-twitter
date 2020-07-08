@@ -8,6 +8,6 @@ export const ensureAuthenticated = (
   if (req.isAuthenticated()) {
     next();
   } else {
-    res.redirect('/signin/form');
+    res.redirect('/auth/signin/form');
   }
 };
