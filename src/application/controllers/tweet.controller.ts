@@ -39,7 +39,7 @@ export const tweetCreate = async (req: Request, res: Response) => {
   const user = req.user! as User;
 
   try {
-    await createTweet({ ...body, authorId: user._id });
+    await createTweet({ ...body, author: user._id });
     res.redirect('/');
   } catch (error) {
     const errors = Object.keys(error.errors).map(
