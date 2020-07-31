@@ -1,7 +1,7 @@
 import { connect } from 'mongoose';
-const uri: string = process.env.MONGO_CONNECTION_URI!;
+const environment = require(`../environment/${process.env.NODE_ENV}`);
 
-connect(uri, {
+connect(environment.dbUrl, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useCreateIndex: true,
