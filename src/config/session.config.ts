@@ -1,4 +1,4 @@
-import { app } from '../../app';
+import app from '../../app';
 import expressSession from 'express-session';
 import connectMongo from 'connect-mongo';
 const mongoStoreFactory = connectMongo(expressSession);
@@ -17,5 +17,5 @@ app.use(
       mongooseConnection: connection,
       ttl: 60 * 60 * 24 * 14,
     }),
-  })
+  }),
 );

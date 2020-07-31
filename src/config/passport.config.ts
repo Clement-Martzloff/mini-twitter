@@ -1,5 +1,5 @@
 import passport from 'passport';
-import { app } from '../../app';
+import app from '../../app';
 import { Strategy } from 'passport-local';
 import {
   findUserByEmail,
@@ -34,7 +34,7 @@ passport.use(
         if (user) {
           const match = await comparePassword(
             password,
-            user.get('local.password')
+            user.get('local.password'),
           );
 
           if (match) {
@@ -48,6 +48,6 @@ passport.use(
       } catch (error) {
         done(error);
       }
-    }
-  )
+    },
+  ),
 );
