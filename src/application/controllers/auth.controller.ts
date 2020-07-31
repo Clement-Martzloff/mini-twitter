@@ -32,7 +32,6 @@ export const signIn = (req: Request, res: Response, next: NextFunction) => {
 };
 
 export const signOut = (req: Request, res: Response) => {
-  console.log(req);
   req.logout();
   res.redirect('/auth/signin/form');
 };
