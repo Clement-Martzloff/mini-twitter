@@ -4,7 +4,7 @@
   "main": "app.js",
   "license": "MIT",
   "scripts": {
-    "start:prod": "set NODE_ENV=production&& node dist/app.js",
+    "start:prod": "set NODE_ENV=production&& node dist/src/bin/www.js",
     "start:dev": "set NODE_ENV=development&& nodemon",
     "build": "tsc"
   },
