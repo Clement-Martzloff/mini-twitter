@@ -9,11 +9,11 @@ import morgan from 'morgan';
 import path from 'path';
 import errorhandler from 'errorhandler';
 
-import { router as indexRoutes } from './src/application/routes/index.routes';
+import { router as indexRoutes } from './application/routes/index.routes';
 
-// import './src/infrastructure/mongodb.connection'
-import './src/config/session.config';
-import './src/config/passport.config';
+import './infrastructure/mongodb.connection';
+import './application/middleware-configs/session.config';
+import './application/middleware-configs/passport.config';
 
 app.set('views', path.join(__dirname, 'src/views'));
 app.set('view engine', 'pug');

@@ -4,8 +4,8 @@ import { Strategy } from 'passport-local';
 import {
   findUserByEmail,
   findUserById,
-} from '../infrastructure/repositories/mongodb.user.repository';
-import { comparePassword } from '../domain/user.domain';
+} from '../../infrastructure/repositories/mongodb.user.repository';
+import { comparePassword } from '../../domain/user.domain';
 
 app.use(passport.initialize());
 app.use(passport.session());
