@@ -1,5 +1,8 @@
 import { Router, Request, Response } from 'express';
-import { ensureSecure, ensureAuthenticated } from '../../config/guards';
+import {
+  ensureSecure,
+  ensureAuthenticated,
+} from '../middlewares/guard.middleware';
 import { router as tweetRouter } from './tweet.routes';
 import { router as userRouter } from './user.routes';
 import { router as authRouter } from './auth.routes';

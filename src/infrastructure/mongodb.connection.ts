@@ -1,5 +1,5 @@
 import { connect } from 'mongoose';
-const environment = require(`../environment/${process.env.NODE_ENV}`);
+import environment from '../application/environment';
 
 connect(environment.dbUrl, {
   useNewUrlParser: true,
