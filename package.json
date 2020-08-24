@@ -4,8 +4,9 @@
   "main": "app.js",
   "license": "MIT",
   "scripts": {
-    "start:prod": "set NODE_ENV=production&& node dist/src/bin/www.js",
+    "start:prod": "set NODE_ENV=production&& node dist/src/application/bin/www.js",
     "start:dev": "set NODE_ENV=development&& nodemon",
+    "start:local": "set NODE_ENV=local&& nodemon",
     "build": "tsc"
   },
   "dependencies": {
