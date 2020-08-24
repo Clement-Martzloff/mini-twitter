@@ -4,6 +4,13 @@ dist
 # dependencies
 node_modules
 
+# environment
+src/application/environment/local.ts
+
+# ssl
+src/local.crt
+src/local.key
+
 # misc
 .prettierrc
 .vscode
