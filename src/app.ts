@@ -1,6 +1,6 @@
 import { config } from 'dotenv';
 config();
-import express, { Request, Response } from 'express';
+import express, { Request, Response, NextFunction } from 'express';
 
 const app = express();
 export default app;
@@ -28,7 +28,7 @@ app.use(indexRoutes);
 if (process.env.NODE_ENV === 'development') {
   app.use(errorhandler);
 } else {
-  app.use((err: any, _: Request, res: Response) => {
+  app.use((err: any, _: Request, res: Response, next: NextFunction) => {
     const code = err.code || 500;
 
     res.status(code).json({ code, messge: code === 500 ? null : err.message });
