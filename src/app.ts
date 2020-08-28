@@ -15,7 +15,7 @@ import './infrastructure/mongodb.connection';
 import './application/middleware-configs/session.config';
 import './application/middleware-configs/passport.config';
 
-app.set('views', path.join(__dirname, 'src/views'));
+app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
 app.use(morgan('short'));
