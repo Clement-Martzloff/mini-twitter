@@ -22,10 +22,10 @@ Use the package manager [yarn](https://yarnpkg.com/) to install all the dependen
 yarn install
 ```
 
-## Run the project
+## Run the project locally
 
 ```bash
-yarn start:dev
+yarn start:local
 ```
 
 ## Contributing
