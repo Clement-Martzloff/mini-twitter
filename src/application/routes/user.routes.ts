@@ -4,7 +4,7 @@ import {
   signUpForm,
   uploadImage,
 } from '../controllers/user.controller';
-import { ensureAuthenticated } from '../../config/guards';
+import { ensureAuthenticated } from '../middlewares/guard.middleware';
 
 const router = Router();
 
