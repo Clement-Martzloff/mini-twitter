@@ -1,5 +1,5 @@
 module.exports = {
-  dbUrl: process.env.MONGODB_CONNEXION_STRING_DEV!,
-  cert: process.env.SSL_CERTIFICATE_PATH_DEV!,
-  key: process.env.RSA_KEY_PATH_DEV!,
+  dbUrl: process.env.DEV_MONGODB_CONNEXION_STRING!,
+  cert: process.env.DEV_SSL_CERTIFICATE_PATH!,
+  key: process.env.DEV_RSA_KEY_PATH!,
 };

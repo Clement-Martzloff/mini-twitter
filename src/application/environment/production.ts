@@ -1,7 +1,5 @@
-import path from 'path';
-
 module.exports = {
-  dbUrl: process.env.MONGODB_CONNEXION_STRING_PROD!,
-  cert: path.join(__dirname, process.env.SSL_CERTIFICATE_PATH_PROD!),
-  key: path.join(__dirname, process.env.RSA_KEY_PATH_PROD!),
+  dbUrl: process.env.PROD_MONGODB_CONNEXION_STRING!,
+  cert: process.env.PROD_SSL_CERTIFICATE_PATH!,
+  key: process.env.PROD_RSA_KEY_PATH!,
 };
