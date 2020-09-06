@@ -1,12 +1,12 @@
 import { Request, Response, NextFunction } from 'express';
 import {
-  createTweet,
+  save,
   getAllTweets,
   deleteTweet,
   getTweet,
   updateTweet,
 } from '../../infrastructure/repositories/mongodb.tweet.repository';
-import { TweetProps } from '../../domain/tweet.domain';
+import { create } from '../../domain/tweet.domain';
 import { User } from '../../domain/user.domain';
 
 export const tweetList = async (
@@ -14,13 +14,17 @@ export const tweetList = async (
   res: Response,
   next: NextFunction
 ) => {
+  // const user = req.user! as User;
+
   try {
-    const documents = await getAllTweets();
+    // const documents = await getCurrentUserWithFollowing(user);
+    const tweets = await getAllTweets();
 
     res.render('tweets/tweet', {
-      tweets: documents,
+      tweets,
       isAuthenticated: req.isAuthenticated(),
       currentUser: req.user,
+      // user: req.user,
     });
   } catch (error) {
     next(error);
@@ -35,11 +39,16 @@ export const tweetNew = (req: Request, res: Response) =>
   });
 
 export const tweetCreate = async (req: Request, res: Response) => {
-  const body: TweetProps = req.body;
   const user = req.user! as User;
+  console.log(user);
+
+  const tweet = create({
+    content: req.body.content,
+    authorId: user.id,
+  });
 
   try {
-    await createTweet({ ...body, author: user._id });
+    await save(tweet);
     res.redirect('/');
   } catch (error) {
     const errors = Object.keys(error.errors).map(
@@ -65,9 +74,9 @@ export const tweetDelete = async (
   try {
     await deleteTweet(tweetId);
 
-    const documents = await getAllTweets();
+    const tweets = await getAllTweets();
 
-    res.render('tweets/tweet-list', { tweets: documents });
+    res.render('tweets/tweet-list', { tweets });
   } catch (error) {
     next(error);
   }
@@ -81,10 +90,10 @@ export const tweetEdit = async (
   const tweetId = req.params.tweetId;
 
   try {
-    const document = await getTweet(tweetId);
+    const tweet = await getTweet(tweetId);
 
     res.render('tweets/tweet-form', {
-      tweet: document,
+      tweet,
       isAuthenticated: req.isAuthenticated(),
       currentUser: req.user,
     });
@@ -104,11 +113,11 @@ export const tweetUpdate = async (req: Request, res: Response) => {
     const errors = Object.keys(error.errors).map(
       (key) => error.errors[key].message
     );
-    const document = await getTweet(tweetId);
+    const tweet = await getTweet(tweetId);
 
     res.status(400).render('tweets/tweet-form', {
       errors,
-      tweet: document,
+      tweet,
       isAuthenticated: req.isAuthenticated(),
       currentUser: req.user,
     });

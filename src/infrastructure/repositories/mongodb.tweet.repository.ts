@@ -1,18 +1,41 @@
 import mongooseTweetModel from '../mongoose.models/mongoose.tweet.model';
-import { TweetProps } from '../../domain/tweet.domain';
+import { Tweet, TweetProps } from '../../domain/tweet.domain';
+import { toDomain, toMongoose } from '../../domain/tweet.mapper';
 
-export const getAllTweets = () => mongooseTweetModel.find().exec();
+/* --------------------------------- QUERIES -------------------------------- */
 
-export const createTweet = (body: TweetProps) =>
-  mongooseTweetModel.create(body);
+export const getAllTweets = async (): Promise<Tweet[]> => {
+  const tweetDocuments = await mongooseTweetModel.find().exec();
 
-export const deleteTweet = (tweetId: string) =>
-  mongooseTweetModel.findByIdAndDelete(tweetId).exec();
+  return tweetDocuments.map((tweetDocument) => toDomain(tweetDocument));
+};
 
-export const getTweet = (tweetId: string) =>
-  mongooseTweetModel.findOne({ _id: tweetId }).exec();
-
-export const updateTweet = (tweetId: string, body: TweetProps) =>
-  mongooseTweetModel
-    .findByIdAndUpdate(tweetId, { $set: body }, { runValidators: true })
+export const getTweet = async (tweetId: string): Promise<Tweet> => {
+  const tweetDocument = await mongooseTweetModel
+    .findOne({ _id: tweetId })
     .exec();
+
+  return toDomain(tweetDocument);
+};
+
+/* -------------------------------- COMMANDS -------------------------------- */
+
+export const save = async (tweet: Tweet): Promise<void> => {
+  const rawTweet = toMongoose(tweet);
+  console.log('rawTweet: ', rawTweet);
+
+  await mongooseTweetModel.create(rawTweet);
+};
+
+export const deleteTweet = async (tweetId: string): Promise<void> => {
+  await mongooseTweetModel.findByIdAndDelete(tweetId).exec();
+};
+
+export const updateTweet = async (
+  tweetId: string,
+  props: TweetProps
+): Promise<void> => {
+  await mongooseTweetModel
+    .findByIdAndUpdate(tweetId, { $set: props }, { runValidators: true })
+    .exec();
+};
