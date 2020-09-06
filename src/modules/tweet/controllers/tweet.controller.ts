@@ -5,26 +5,22 @@ import {
   deleteTweet,
   getTweet,
   updateTweet,
-} from '../../infrastructure/repositories/mongodb.tweet.repository';
-import { create } from '../../domain/tweet.domain';
-import { User } from '../../domain/user.domain';
+} from '../repos/tweet.repos';
+import { create } from '../domain/tweet.domain';
+import { User } from '../../user/domain/user.domain';
 
 export const tweetList = async (
   req: Request,
   res: Response,
   next: NextFunction
 ) => {
-  // const user = req.user! as User;
-
   try {
-    // const documents = await getCurrentUserWithFollowing(user);
     const tweets = await getAllTweets();
 
     res.render('tweets/tweet', {
       tweets,
       isAuthenticated: req.isAuthenticated(),
       currentUser: req.user,
-      // user: req.user,
     });
   } catch (error) {
     next(error);
