@@ -1,24 +1,48 @@
 import mongooseUserModel from '../../infrastructure/mongoose.models/mongoose.user.model';
-import { UserProps, hashPassword } from '../../domain/user.domain';
+import { User } from '../../domain/user.domain';
+import { toDomain, toMongoose } from '../../domain/user.mapper';
 
-export const createUser = async (user: UserProps) => {
+const exists = async (email: string): Promise<boolean> => {
+  const found = await mongooseUserModel
+    .findOne({ 'local.email': email })
+    .exec();
+
+  return found !== null;
+};
+
+/* --------------------------------- QUERIES -------------------------------- */
+
+export const findUserByEmail = async (email: string): Promise<User> => {
+  const userDocument = await mongooseUserModel
+    .findOne({ 'local.email': email })
+    .exec();
+
+  return toDomain(userDocument);
+};
+
+export const findUserById = async (id: string): Promise<User> => {
+  const userDocument = await mongooseUserModel.findById(id).exec();
+
+  return toDomain(userDocument);
+};
+
+/* -------------------------------- COMMANDS -------------------------------- */
+
+export const save = async (user: User): Promise<void> => {
   try {
-    const hashedPassword = await hashPassword(user.password);
+    const rawUser = toMongoose(user);
+    const userExists = await exists(user.local.email);
 
-    return mongooseUserModel.create({
-      username: user.username,
-      local: {
-        email: user.email,
-        password: hashedPassword,
-      },
-    });
+    if (!userExists) {
+      await mongooseUserModel.create(rawUser);
+    } else {
+      const userDocument = await mongooseUserModel
+        .findOne({ 'local.email': user.local.email })
+        .exec();
+
+      await userDocument!.update(rawUser).exec();
+    }
   } catch (error) {
     throw error;
   }
 };
-
-export const findUserByEmail = (email: string) =>
-  mongooseUserModel.findOne({ 'local.email': email }).exec();
-
-export const findUserById = (id: string) =>
-  mongooseUserModel.findById(id).exec();

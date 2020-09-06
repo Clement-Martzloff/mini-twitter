@@ -1,8 +1,8 @@
-import { Request, Response, NextFunction } from 'express';
+import { Request, Response } from 'express';
 import path from 'path';
 import multer, { diskStorage } from 'multer';
-import { createUser } from '../../infrastructure/repositories/mongodb.user.repository';
-import { IMongooseDocWithUserProps } from '../../infrastructure/mongoose.adapters/user.adapter';
+import { save } from '../../infrastructure/repositories/mongodb.user.repository';
+import { User, create, hashPassword } from '../../domain/user.domain';
 
 const upload = multer({
   storage: diskStorage({
@@ -25,8 +25,14 @@ export const signUpForm = async (req: Request, res: Response) => {
 
 export const signUp = async (req: Request, res: Response) => {
   try {
-    const user = await createUser(req.body);
+    const hashedPassword = await hashPassword(req.body.password);
+    const user: User = create({
+      username: req.body.username,
+      email: req.body.email,
+      password: hashedPassword,
+    });
 
+    await save(user);
     res.redirect('/');
   } catch (error) {
     res.render('users/user-form', {
@@ -39,11 +45,11 @@ export const signUp = async (req: Request, res: Response) => {
 
 export const uploadImage = [
   upload.single('avatar'),
-  async (req: Request, res: Response, next: NextFunction) => {
-    const user = req.user! as IMongooseDocWithUserProps;
+  async (req: Request, res: Response) => {
+    const user = req.user! as User;
 
-    user.avatar = req.file.filename;
-    user.save();
+    user.setAvatar(req.file.filename);
+    await save(user);
     res.end();
   },
 ];
