@@ -5,12 +5,14 @@ import {
   findUserByEmail,
   findUserById,
 } from '../../infrastructure/repositories/mongodb.user.repository';
-import { comparePassword } from '../../domain/user.domain';
+import { User, comparePassword } from '../../domain/user.domain';
 
 app.use(passport.initialize());
 app.use(passport.session());
 
-passport.serializeUser((user: any, done) => done(null, user._id));
+passport.serializeUser((user: User, done) => {
+  done(null, user.id);
+});
 passport.deserializeUser(async (id: string, done) => {
   try {
     const user = await findUserById(id);
@@ -32,10 +34,7 @@ passport.use(
         const user = await findUserByEmail(email);
 
         if (user) {
-          const match = await comparePassword(
-            password,
-            user.get('local.password'),
-          );
+          const match = await comparePassword(password, user.local.password);
 
           if (match) {
             done(null, user);
@@ -48,6 +47,6 @@ passport.use(
       } catch (error) {
         done(error);
       }
-    },
-  ),
+    }
+  )
 );
