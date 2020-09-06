@@ -1,8 +1,9 @@
 import tweetModel from '../../../infra/mongoose/models/tweet.model';
 import { Tweet, TweetProps } from '../domain/tweet.domain';
+import { User } from '../../user/domain/user.domain';
 import { toDomain, toMongoose } from '../mappers/tweet.mapper';
 
-/* --------------------------------- QUERIES -------------------------------- */
+/* --------------------------------- QUERIES ------------------------------- */
 
 export const getAllTweets = async (): Promise<Tweet[]> => {
   const tweetDocuments = await tweetModel.find().exec();
@@ -16,11 +17,29 @@ export const getTweet = async (tweetId: string): Promise<Tweet> => {
   return toDomain(tweetDocument);
 };
 
+export const getTweetsByAuthor = async (authorId: string): Promise<Tweet[]> => {
+  const tweetDocuments = await tweetModel.find({ authorId }).exec();
+
+  return tweetDocuments.map((tweetDocument) => toDomain(tweetDocument));
+};
+
+export const getTweetsWithAuthorByFollowings = async (
+  user: User
+): Promise<Tweet[]> => {
+  const tweetDocuments = await tweetModel
+    .find({
+      authorId: { $in: [user.followings] },
+    })
+    .populate('author')
+    .exec();
+
+  return tweetDocuments.map((tweetDocument) => toDomain(tweetDocument));
+};
+
 /* -------------------------------- COMMANDS -------------------------------- */
 
 export const save = async (tweet: Tweet): Promise<void> => {
   const rawTweet = toMongoose(tweet);
-  console.log('rawTweet: ', rawTweet);
 
   await tweetModel.create(rawTweet);
 };
