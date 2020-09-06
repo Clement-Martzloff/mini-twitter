@@ -1,8 +1,8 @@
 import fs from 'fs';
 import https from 'https';
 import http from 'http';
-import app from '../../app';
-import environment from '../environment';
+import app from '../src/infra/api/app';
+import { environment } from '../src/env';
 
 http.createServer(app).listen(8080);
 https
@@ -11,11 +11,6 @@ https
       cert: fs.readFileSync(environment.cert),
       key: fs.readFileSync(environment.key),
     },
-    app,
-    // (req, res) => {
-    //   res.writeHead(200);
-    //   res.write('ok!');
-    //   res.end();
-    // },
+    app
   )
   .listen(443);
