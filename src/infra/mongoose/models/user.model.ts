@@ -1,6 +1,6 @@
 import { model, Schema } from 'mongoose';
 
-export const mongooseUserschema = {
+export const userschema = {
   username: { type: String, required: true, unique: true },
   local: {
     email: { type: String, required: true, unique: true },
@@ -9,6 +9,6 @@ export const mongooseUserschema = {
   avatar: { type: String, default: '/images/default-avatar.png' },
 };
 
-const mongooseUserModel = model('user', new Schema(mongooseUserschema));
+const userModel = model('user', new Schema(userschema));
 
-export default mongooseUserModel;
+export default userModel;

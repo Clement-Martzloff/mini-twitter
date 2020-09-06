@@ -1,6 +1,6 @@
 import { model, Schema } from 'mongoose';
 
-const mongooseTweetSchema = {
+const tweetSchema = {
   content: {
     type: String,
     maxlength: [140, 'Tweet trop long'],
@@ -10,6 +10,6 @@ const mongooseTweetSchema = {
   authorId: { type: Schema.Types.ObjectId, ref: 'user', required: true },
 };
 
-const mongooseTweetModel = model('tweet', new Schema(mongooseTweetSchema));
+const tweetModel = model('tweet', new Schema(tweetSchema));
 
-export default mongooseTweetModel;
+export default tweetModel;

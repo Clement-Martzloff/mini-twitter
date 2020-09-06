@@ -1,5 +1,5 @@
 import { connect } from 'mongoose';
-import environment from '../application/environment';
+import { environment } from '../../env';
 
 connect(environment.dbUrl, {
   useNewUrlParser: true,
