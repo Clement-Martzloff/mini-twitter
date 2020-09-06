@@ -13,6 +13,7 @@ The purpose of this application is to practice code to develop different standar
 - [x] Create a session-based authentication system
 - [x] Allow users to receive new tweets in real time
 - [x] Create a user's profile administration
+- [x] Use the TLS protocol to secure client-server communications
 
 ## Installation
 
