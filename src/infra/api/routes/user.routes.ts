@@ -3,7 +3,7 @@ import {
   signUp,
   signUpForm,
   uploadImage,
-} from '../controllers/user.controller';
+} from '../../../modules/user/controllers/user.controller';
 import { ensureAuthenticated } from '../middlewares/guard.middleware';
 
 const router = Router();

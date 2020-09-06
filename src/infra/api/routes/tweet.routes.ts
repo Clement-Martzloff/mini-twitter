@@ -6,7 +6,7 @@ import {
   tweetDelete,
   tweetEdit,
   tweetUpdate,
-} from '../controllers/tweet.controller';
+} from '../../../modules/tweet/controllers/tweet.controller';
 
 const router = Router();
 

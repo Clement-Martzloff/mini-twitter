@@ -1,5 +1,9 @@
 import { Router } from 'express';
-import { signInForm, signIn, signOut } from '../controllers/auth.controller';
+import {
+  signInForm,
+  signIn,
+  signOut,
+} from '../../../modules/auth/controllers/auth.controller';
 
 const router = Router();
 

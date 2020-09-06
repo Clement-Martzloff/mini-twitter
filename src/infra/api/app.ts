@@ -9,17 +9,17 @@ import morgan from 'morgan';
 import path from 'path';
 import errorhandler from 'errorhandler';
 
-import { router as indexRoutes } from './application/routes/index.routes';
+import { router as indexRoutes } from './routes/index.routes';
 
-import './infrastructure/mongodb.connection';
-import './application/middleware-configs/session.config';
-import './application/middleware-configs/passport.config';
+import '../mongoose/connection';
+import './config/session.config';
+import './config/passport.config';
 
-app.set('views', path.join(__dirname, 'views'));
+app.set('views', path.join(__dirname, '../../views'));
 app.set('view engine', 'pug');
 
 app.use(morgan('short'));
-app.use(express.static(path.join(__dirname, '../public')));
+app.use(express.static(path.join(__dirname, '../../../public')));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 

@@ -1,11 +1,14 @@
 import passport from 'passport';
-import app from '../../app';
+import app from '../app';
 import { Strategy } from 'passport-local';
 import {
   findUserByEmail,
   findUserById,
-} from '../../infrastructure/repositories/mongodb.user.repository';
-import { User, comparePassword } from '../../domain/user.domain';
+} from '../../../modules/user/repos/user.repo';
+import {
+  User,
+  comparePassword,
+} from '../../../modules/user/domain/user.domain';
 
 app.use(passport.initialize());
 app.use(passport.session());
