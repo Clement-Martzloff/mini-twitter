@@ -36,11 +36,9 @@ export const tweetNew = (req: Request, res: Response) =>
 
 export const tweetCreate = async (req: Request, res: Response) => {
   const user = req.user! as User;
-  console.log(user);
-
   const tweet = create({
     content: req.body.content,
-    authorId: user.id,
+    author: user.id,
   });
 
   try {

@@ -7,7 +7,7 @@ const tweetSchema = {
     minlength: [1, 'Tweet trop court'],
     required: [true, 'Champ requis'],
   },
-  authorId: { type: Schema.Types.ObjectId, ref: 'user', required: true },
+  author: { type: Schema.Types.ObjectId, ref: 'user', required: true },
 };
 
 const tweetModel = model('tweet', new Schema(tweetSchema));
