@@ -5,7 +5,7 @@ dist
 node_modules
 
 # environment
-src/application/environment/local.ts
+src/env/local.ts
 
 # ssl
 src/local.crt
