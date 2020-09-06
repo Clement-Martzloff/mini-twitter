@@ -1,4 +1,4 @@
-import { User, create } from './user.domain';
+import { User, create } from '../domain/user.domain';
 
 export const toDomain = (raw: any): User => {
   return create(

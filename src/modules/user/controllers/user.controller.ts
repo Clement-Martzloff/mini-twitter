@@ -1,8 +1,8 @@
 import { Request, Response } from 'express';
 import path from 'path';
 import multer, { diskStorage } from 'multer';
-import { save } from '../../infrastructure/repositories/mongodb.user.repository';
-import { User, create, hashPassword } from '../../domain/user.domain';
+import { save } from '../repos/user.repo';
+import { User, create, hashPassword } from '../domain/user.domain';
 
 const upload = multer({
   storage: diskStorage({

@@ -1,11 +1,9 @@
-import mongooseUserModel from '../../infrastructure/mongoose.models/mongoose.user.model';
-import { User } from '../../domain/user.domain';
-import { toDomain, toMongoose } from '../../domain/user.mapper';
+import userModel from '../../../infra/mongoose/models/user.model';
+import { User } from '../domain/user.domain';
+import { toDomain, toMongoose } from '../mappers/user.mapper';
 
 const exists = async (email: string): Promise<boolean> => {
-  const found = await mongooseUserModel
-    .findOne({ 'local.email': email })
-    .exec();
+  const found = await userModel.findOne({ 'local.email': email }).exec();
 
   return found !== null;
 };
@@ -13,15 +11,13 @@ const exists = async (email: string): Promise<boolean> => {
 /* --------------------------------- QUERIES -------------------------------- */
 
 export const findUserByEmail = async (email: string): Promise<User> => {
-  const userDocument = await mongooseUserModel
-    .findOne({ 'local.email': email })
-    .exec();
+  const userDocument = await userModel.findOne({ 'local.email': email }).exec();
 
   return toDomain(userDocument);
 };
 
 export const findUserById = async (id: string): Promise<User> => {
-  const userDocument = await mongooseUserModel.findById(id).exec();
+  const userDocument = await userModel.findById(id).exec();
 
   return toDomain(userDocument);
 };
@@ -34,9 +30,9 @@ export const save = async (user: User): Promise<void> => {
     const userExists = await exists(user.local.email);
 
     if (!userExists) {
-      await mongooseUserModel.create(rawUser);
+      await userModel.create(rawUser);
     } else {
-      const userDocument = await mongooseUserModel
+      const userDocument = await userModel
         .findOne({ 'local.email': user.local.email })
         .exec();
 
